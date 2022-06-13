@@ -12,17 +12,47 @@ let editElement;
 let editFlag = false;
 let editID = "";
 
-// ****** EVENT LISTENERS **********
+// ****************************************************** EVENT LISTENERS **********
 //submit form
 form.addEventListener("submit", addItem);
 
-// ****** FUNCTIONS **********
+//clear button
+clearBtn.addEventListener("click", clearItems);
+
+// ********************************************************** FUNCTIONS **********
 function addItem(e) {
   e.preventDefault();
   const value = grocery.value;
   const id = new Date().getTime().toString();
   if (value && !editFlag) {
-    console.log("add item");
+    const element = document.createElement("article");
+    // add class
+    element.classList.add("grocery-item");
+    //add id
+    const attr = document.createAttribute("data-id");
+    attr.value = id;
+    element.setAttributeNode(attr);
+    element.innerHTML = `<article class="grocery-item">
+            <p class="title">${value}</p>
+            <div class="btn-container">
+              <button type="button" class="edit-btn">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button type="button" class="delete-btn">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </article>`;
+    //apend child
+    list.appendChild(element);
+    //display alet
+    displayAlert("item added to list", "sucess");
+    //show container
+    container.classList.add("show-container");
+    //add to localstorage
+    addToLocalStorage(id, value);
+    // set back to default
+    setBackToDefault();
   } else if (value && editFlag) {
     console.log("editing");
   } else {
@@ -41,6 +71,34 @@ function displayAlert(text, action) {
   }, 2000);
 }
 
-// ****** LOCAL STORAGE **********
+// clear items
+function clearItems() {
+  const items = document.querySelectorAll(".grocery-item");
+  console.log(items);
+  if (items.length > 0) {
+    items.forEach(function (item) {
+      list.removeChild(item);
+    });
+  }
 
-// ****** SETUP ITEMS **********
+  container.classList.remove("show-container");
+  displayAlert("empty list", "danger");
+  // ** want to set back to default because
+  setBackToDefault();
+  localStorage.removeItem("list");
+}
+
+// set back to dafault
+
+function setBackToDefault() {
+  grocery.value = "";
+  editFlag = false;
+  editID = "";
+  submitBtn.textContent = "submit";
+}
+// ********************************************************** LOCAL STORAGE **********
+function addToLocalStorage(id, value) {
+  console.log("added to local storage");
+}
+
+// ************************************************************* SETUP ITEMS **********
