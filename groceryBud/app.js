@@ -74,6 +74,7 @@ function displayAlert(text, action) {
 // clear items
 function clearItems() {
   const items = document.querySelectorAll(".grocery-item");
+  console.log("items", items);
   console.log(items);
   if (items.length > 0) {
     items.forEach(function (item) {
