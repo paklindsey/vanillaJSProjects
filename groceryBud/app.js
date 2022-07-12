@@ -43,6 +43,13 @@ function addItem(e) {
               </button>
             </div>
           </article>`;
+
+    // **adding these here because they are not available on window load
+    const deleteBtn = element.querySelector(".delete-btn");
+    const editBtn = element.querySelector(".edit-btn");
+    deleteBtn.addEventListener("click", deleteItem);
+    editBtn.addEventListener("click", editItem);
+
     //apend child
     list.appendChild(element);
     //display alet
@@ -51,6 +58,14 @@ function addItem(e) {
     container.classList.add("show-container");
     //add to localstorage
     addToLocalStorage(id, value);
+    //edit function
+    function editItem() {
+      console.log("item edited");
+    }
+    // delete function
+    function deleteItem() {
+      console.log("item deleted");
+    }
     // set back to default
     setBackToDefault();
   } else if (value && editFlag) {
