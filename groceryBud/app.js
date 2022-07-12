@@ -63,9 +63,7 @@ function addItem(e) {
       console.log("item edited");
     }
     // delete function
-    function deleteItem() {
-      console.log("item deleted");
-    }
+    function deleteItem(e) {}
     // set back to default
     setBackToDefault();
   } else if (value && editFlag) {
